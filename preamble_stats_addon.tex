@@ -1,0 +1,95 @@
+% =============================================================================
+%  preamble_stats_addon.tex
+%  Insert this block into your TP4 preamble, immediately BEFORE \begin{document}.
+%  It adds theorem environments + statistics macros. It does NOT redefine
+%  anything from the `physics` package (\abs, \norm, \tr, \Tr, \pdv, \dv, ...),
+%  so it coexists with your existing preamble unchanged.
+% =============================================================================
+
+% ---- Theorem-Umgebungen (gemeinsamer Zähler, nummeriert pro section) --------
+% amsthm is already loaded in your TP4 preamble.
+\theoremstyle{plain}
+\newtheorem{satz}{Satz}[section]
+\newtheorem{theorem}[satz]{Theorem}
+\newtheorem{lemma}[satz]{Lemma}
+\newtheorem{korollar}[satz]{Korollar}
+\newtheorem{proposition}[satz]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{definition}[satz]{Definition}
+\newtheorem{beispiel}[satz]{Beispiel}
+\newtheorem{algorithmus}[satz]{Algorithmus}
+
+\theoremstyle{remark}
+\newtheorem{bemerkung}[satz]{Bemerkung}
+\newtheorem*{bemerkung*}{Bemerkung}
+
+% ---- Zahlmengen -------------------------------------------------------------
+% \providecommand so this addon can be merged into a preamble that already
+% defines some of these (e.g. \R, \C) without a "command already defined" abort.
+% (In the current standalone main.tex nothing pre-exists, so these behave exactly
+%  like \newcommand — zero change here, safety only on later merge.)
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\indicator}{\mathbbm{1}}   % requires \usepackage{bbm} (no \mathbb{1} fallback: amsfonts blackboard has no digits)
+
+% ---- Wahrscheinlichkeit & Statistik ----------------------------------------
+% \ifdefined-guarded so merging into an existing preamble never aborts with
+% "command already defined" (mirrors the guards on \rank/\diag/\sgn/\supp below).
+\ifdefined\E\else\DeclareMathOperator{\E}{\mathbb{E}}\fi          % Erwartungswert
+\ifdefined\Var\else\DeclareMathOperator{\Var}{Var}\fi
+\ifdefined\Cov\else\DeclareMathOperator{\Cov}{Cov}\fi
+\ifdefined\Corr\else\DeclareMathOperator{\Corr}{Corr}\fi
+\ifdefined\Bias\else\DeclareMathOperator{\Bias}{Bias}\fi
+\ifdefined\MSE\else\DeclareMathOperator{\MSE}{MSE}\fi
+\ifdefined\Prob\else\DeclareMathOperator{\Prob}{\mathbb{P}}\fi    % \Pr ist LaTeX-intern -> \Prob
+\ifdefined\argmax\else\DeclareMathOperator*{\argmax}{arg\,max}\fi
+\ifdefined\argmin\else\DeclareMathOperator*{\argmin}{arg\,min}\fi
+% Guarded: `physics` already defines \rank; guard the rest so the addon works
+% whether or not physics is loaded.
+\ifdefined\rank\else\DeclareMathOperator{\rank}{rank}\fi
+\ifdefined\diag\else\DeclareMathOperator{\diag}{diag}\fi
+\ifdefined\sgn\else \DeclareMathOperator{\sgn}{sgn}\fi
+\ifdefined\supp\else\DeclareMathOperator{\supp}{supp}\fi
+
+% bedingte Wahrscheinlichkeit / "gegeben": \Prob(A \given B).
+% Robust with plain parens. For a stretchy bar use \left(\,\cdot\,\middle|\,\cdot\,\right).
+\providecommand{\given}{\mid}
+% Unabhängigkeit  X \indep Y
+\providecommand{\indep}{\perp\!\!\!\perp}
+% i.i.d.  X_1,\dots,X_n \iid \Normal(0,1)
+\providecommand{\iid}{\overset{\text{iid}}{\sim}}
+% konvergiert in Verteilung / Wahrscheinlichkeit
+\providecommand{\convd}{\overset{d}{\to}}
+\providecommand{\convp}{\overset{p}{\to}}
+
+% ---- Verteilungen -----------------------------------------------------------
+\providecommand{\Normal}{\mathcal{N}}
+\providecommand{\Bernoulli}{\mathrm{Bernoulli}}
+\providecommand{\Binomial}{\mathrm{Bin}}
+\providecommand{\Poisson}{\mathrm{Poisson}}
+\providecommand{\Uniform}{\mathrm{Unif}}
+\providecommand{\Expo}{\mathrm{Exp}}
+
+% ---- Vektoren ---------------------------------------------------------------
+% EIN Makro, EINE Stelle zum Umschalten. \vek{x}, \vek{\beta}, \vek{1} (Einsvektor).
+%
+% Die Darstellung ist bewusst hier zentralisiert: die Vorlesung schreibt Vektoren
+% an der Tafel unterstrichen, in einem gesetzten Skript ist das unüblich (Standard
+% wäre fett). Diese Frage ist damit ein Einzeiler und keine Migration über 14.500
+% Zeilen — vorher hing die Notation an ~390 einzelnen \underline{} im Fließtext.
+%
+% Umschalten auf die Buchkonvention: die beiden Zeilen tauschen. \boldsymbol (nicht
+% \mathbf!) ist die richtige Wahl, weil \mathbf griechische Buchstaben NICHT fett
+% setzt — \vek{\beta} und \vek{\mu} kommen im Skript vor.
+% \providecommand{\vek}[1]{\underline{#1}}   % Tafelkonvention (wie im Video)
+\providecommand{\vek}[1]{\boldsymbol{#1}}     % Buchkonvention (aktuell)
+
+% ---- Schätzer / Transponieren ----------------------------------------------
+\providecommand{\est}[1]{\hat{#1}}            % \est{\theta} -> \hat\theta
+% \T beginnt mit ^ : Exponenten davor immer gruppieren, sonst "Double superscript"
+% (also (X^{-1})\T statt X^{-1}\T). Nur im Mathe-Modus verwendbar.
+\providecommand{\T}{^{\!\top}}                % A\T  (Transponierte)

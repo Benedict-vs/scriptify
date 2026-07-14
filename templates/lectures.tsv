@@ -1,0 +1,17 @@
+# Lecture manifest — drives scripts/prepare_all.sh
+# COPY TO work/lectures.tsv, or generate it: python scripts/build_manifest.py
+#
+# Lecture number = LAST digit-run in the filename (CSDA2023-5 -> L05), so
+# recordings from mixed years still form one continuous series.
+# TAB-separated. Lines starting with # are ignored.
+#
+# param: extra extract_pages_scroll.py flags for THIS lecture; '-' = global
+#        defaults (the normal case). See README -> "Knobs". It is NOT a page
+#        budget — do not raise --ink-threshold to get fewer pages, that tears
+#        coverage gaps.
+#
+# lecture_id	source_video	param	note
+L01	videos/CSDA26_1.mp4	-	first lecture
+L02	videos/CSDA26_2.mp4	-
+L05	videos/CSDA2023-5.mp4	--overlap 0.6	older recording, scrolls faster
+L13	videos/CSDA26_13.pdf	-	handed out as a PDF, not recorded

@@ -1,0 +1,51 @@
+% =============================================================================
+%  main.tex — the document that binds the per-lecture fragments together.
+%
+%  COPY THIS TO work/main.tex AND EDIT THE TITLE. It lives in work/ (not at the
+%  repo root) because it is course-specific: work/ is the private half of the
+%  project, the rest is the tool. Build it with:
+%
+%      scripts/build.sh            # -> work/main.pdf
+%
+%  Paths are relative to work/, which is where latexmk chdir's (-cd).
+% =============================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}     % language of the PROSE (see CLAUDE.md); swap for [english]
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{bbm}          % \indicator = \mathbbm{1}
+
+\usepackage{graphicx}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black}
+
+\numberwithin{equation}{section}
+\input{../preamble_stats_addon.tex}   % theorem environments + statistics macros
+
+\title{\Huge\bfseries <COURSE TITLE>\\[1em]
+       \huge <Term, University>\\[0.5em]
+       \huge Built from the lecture recordings with Claude\\[0.5em]
+       \huge Experimental. No warranty. Personal study notes.}
+\author{}\date{}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+% ---- One \input per lecture, in order. Add a line as each L##.tex lands. ----
+\input{L01/L01.tex}
+% \input{L02/L02.tex}
+% \input{L03/L03.tex}
+
+\end{document}

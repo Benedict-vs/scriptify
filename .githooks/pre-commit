@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# pre-commit — refuse to commit lecture content to the public tool repo.
+#
+# .gitignore already keeps work/ and videos/ out. This hook is the second lock,
+# because .gitignore is silent about anything ALREADY staged and does nothing
+# against `git add -f`. Getting this wrong publishes someone else's lecture, and
+# a force-push does not un-publish it — so the check is cheap and the failure is
+# loud.
+#
+# Install:  scripts/install-hooks.sh
+set -euo pipefail
+
+# In the private content repo (work/ as its own repo) this hook must not fire:
+# there, committing content is the entire point. Detect by remote URL.
+if git remote get-url origin 2>/dev/null | grep -qiE 'content|skript|script-content'; then
+    exit 0
+fi
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[[ -z "$staged" ]] && exit 0
+
+# Paths that are lecture material, whatever they are called.
+offenders=$(printf '%s\n' "$staged" | grep -iE \
+    '(^|/)(work|videos)/|\.(mp4|mov|m4v|mkv|mp3|wav|m4a|srt|vtt)$|(^|/)frames/|(^|/)pages(_context)?\.(json|md)$|(^|/)L[0-9]{2}\.tex$' \
+    || true)
+
+if [[ -n "$offenders" ]]; then
+    cat >&2 <<EOF
+[!] pre-commit: refusing to commit lecture content to the tool repo.
+
+$(printf '    %s\n' $offenders)
+
+These are recordings, transcripts, extracted frames or the script itself — the
+intellectual property of whoever gave the lecture, and this repo is public.
+They belong in the PRIVATE content repo (work/), not here.
+
+    git restore --staged <path>      # unstage, then commit from inside work/
+
+If you are certain this file is tool code and not content, rename it or commit
+with --no-verify (and be sure).
+EOF
+    exit 1
+fi

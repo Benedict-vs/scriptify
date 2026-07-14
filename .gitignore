@@ -1,0 +1,51 @@
+# =============================================================================
+#  This repo is a TOOL. The lecture material you point it at is NOT part of it.
+#
+#  Recordings, transcripts, extracted frames and the finished script are the
+#  intellectual property of whoever gave the lecture. They live in `work/` and
+#  `videos/`, both ignored wholesale, and they must never be committed here.
+#  Keep them in a PRIVATE repo (see README -> "Keeping your content out of git").
+#  A pre-commit hook enforces this:  scripts/install-hooks.sh
+# =============================================================================
+videos/
+work/
+
+# Belt and braces. `work/` above already covers these, but if the layout ever
+# changes, content must still not become committable by accident.
+*.mp4
+*.mov
+*.m4v
+*.mkv
+*.mp3
+*.wav
+*.m4a
+*.srt
+*.vtt
+frames/
+pages.json
+pages_context.md
+
+# LaTeX build artifacts (the built script is content, too)
+*.pdf
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / OS
+.DS_Store
+**/.DS_Store
+
+# Claude Code local settings (machine-specific permissions, not shared config)
+.claude/settings.local.json
