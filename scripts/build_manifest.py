@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""build_manifest.py — (re)generate lectures.tsv from the videos in videos/.
+"""build_manifest.py — (re)generate work/lectures.tsv from the videos in videos/.
+
+The manifest lives in work/ with the rest of the course-specific material (work/ is
+the private half of the project; everything outside it is the tool).
 
 Lecture number = the LAST run of digits in the filename stem
 (CSDA26_1 -> L01, CSDA2023-5 -> L05), so recordings from mixed years form one
-continuous series. Existing threshold/note values in lectures.tsv are preserved
-across regeneration, so you can safely re-run this whenever you drop in a new video.
+continuous series. Existing param/note values are preserved across regeneration,
+so you can safely re-run this whenever you drop in a new video.
 
 Usage:
-  python scripts/build_manifest.py                 # videos/ -> lectures.tsv
-  python scripts/build_manifest.py --videos videos --out lectures.tsv
+  python scripts/build_manifest.py                 # videos/ -> work/lectures.tsv
+  python scripts/build_manifest.py --videos videos --out work/lectures.tsv
 """
 from __future__ import annotations
 import argparse, re, sys

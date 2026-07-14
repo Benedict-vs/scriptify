@@ -8,6 +8,11 @@ lecture; change them here, once, before the fan-out.
 Operating the pipeline (setup, knobs, failure modes) is the [README](README.md). This file is
 about the **output**.
 
+> **Before you start: if `work/` has notes in it (`HANDOFF.md`, `RUNBOOK.md`, `*_BRIEF.md`), read
+> them first.** They are the private, course-specific half of this project and carry its *current
+> state* — what is done, what is deliberately left alone, and which fixes must not be undone. This
+> file only carries the conventions, which say nothing about where the work currently stands.
+
 > **Edit this file for your course.** The conventions below are a working profile, not law: they
 > produce **German prose with English technical terms**, statistics notation, `article` class.
 > Change them to suit — but change them *before* Stage 4, because afterwards it is a consistency

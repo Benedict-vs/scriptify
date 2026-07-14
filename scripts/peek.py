@@ -58,13 +58,17 @@ def fmt_ts(t: float) -> str:
 
 
 def source_for(lecture: str) -> Path:
-    for line in (ROOT / "lectures.tsv").read_text().splitlines():
+    tsv = ROOT / "work" / "lectures.tsv"
+    if not tsv.is_file():
+        sys.exit(f"[!] {tsv} not found — the manifest lives with the content, in work/. "
+                 f"Generate it with `python scripts/build_manifest.py`.")
+    for line in tsv.read_text().splitlines():
         if line.startswith("#") or not line.strip():
             continue
         cols = line.split("\t")
         if cols[0] == lecture:
             return ROOT / cols[1]
-    sys.exit(f"{lecture} not in lectures.tsv")
+    sys.exit(f"{lecture} not in {tsv}")
 
 
 def main() -> None:
