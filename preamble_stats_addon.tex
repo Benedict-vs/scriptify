@@ -1,30 +1,35 @@
 % =============================================================================
 %  preamble_stats_addon.tex
-%  Insert this block into your TP4 preamble, immediately BEFORE \begin{document}.
-%  It adds theorem environments + statistics macros. It does NOT redefine
-%  anything from the `physics` package (\abs, \norm, \tr, \Tr, \pdv, \dv, ...),
-%  so it coexists with your existing preamble unchanged.
+%  Included by main.tex (see templates/main.tex), immediately BEFORE
+%  \begin{document}. It adds theorem environments + statistics macros. It does
+%  NOT redefine anything from the `physics` package (\abs, \norm, \tr, \Tr,
+%  \pdv, \dv, ...), so it coexists with an existing preamble unchanged.
+%
+%  Language: the printed theorem labels below ("Theorem", "Example", ...) are
+%  the one language-dependent part of this file. For a script in another
+%  language, translate the LABELS and keep the ENVIRONMENT NAMES — the names
+%  are code (CLAUDE.md and the fragments reference them), the labels are what
+%  the reader sees. See CLAUDE.md -> "Language".
 % =============================================================================
 
-% ---- Theorem-Umgebungen (gemeinsamer Zähler, nummeriert pro section) --------
-% amsthm is already loaded in your TP4 preamble.
+% ---- Theorem environments (shared counter, numbered per section) ------------
+% amsthm is already loaded in main.tex.
 \theoremstyle{plain}
-\newtheorem{satz}{Satz}[section]
-\newtheorem{theorem}[satz]{Theorem}
-\newtheorem{lemma}[satz]{Lemma}
-\newtheorem{korollar}[satz]{Korollar}
-\newtheorem{proposition}[satz]{Proposition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
 
 \theoremstyle{definition}
-\newtheorem{definition}[satz]{Definition}
-\newtheorem{beispiel}[satz]{Beispiel}
-\newtheorem{algorithmus}[satz]{Algorithmus}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{algorithm}[theorem]{Algorithm}
 
 \theoremstyle{remark}
-\newtheorem{bemerkung}[satz]{Bemerkung}
-\newtheorem*{bemerkung*}{Bemerkung}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark}
 
-% ---- Zahlmengen -------------------------------------------------------------
+% ---- Number sets ------------------------------------------------------------
 % \providecommand so this addon can be merged into a preamble that already
 % defines some of these (e.g. \R, \C) without a "command already defined" abort.
 % (In the current standalone main.tex nothing pre-exists, so these behave exactly
@@ -36,16 +41,16 @@
 \providecommand{\C}{\mathbb{C}}
 \providecommand{\indicator}{\mathbbm{1}}   % requires \usepackage{bbm} (no \mathbb{1} fallback: amsfonts blackboard has no digits)
 
-% ---- Wahrscheinlichkeit & Statistik ----------------------------------------
+% ---- Probability & statistics ----------------------------------------------
 % \ifdefined-guarded so merging into an existing preamble never aborts with
 % "command already defined" (mirrors the guards on \rank/\diag/\sgn/\supp below).
-\ifdefined\E\else\DeclareMathOperator{\E}{\mathbb{E}}\fi          % Erwartungswert
+\ifdefined\E\else\DeclareMathOperator{\E}{\mathbb{E}}\fi          % expectation
 \ifdefined\Var\else\DeclareMathOperator{\Var}{Var}\fi
 \ifdefined\Cov\else\DeclareMathOperator{\Cov}{Cov}\fi
 \ifdefined\Corr\else\DeclareMathOperator{\Corr}{Corr}\fi
 \ifdefined\Bias\else\DeclareMathOperator{\Bias}{Bias}\fi
 \ifdefined\MSE\else\DeclareMathOperator{\MSE}{MSE}\fi
-\ifdefined\Prob\else\DeclareMathOperator{\Prob}{\mathbb{P}}\fi    % \Pr ist LaTeX-intern -> \Prob
+\ifdefined\Prob\else\DeclareMathOperator{\Prob}{\mathbb{P}}\fi    % \Pr is LaTeX-internal -> \Prob
 \ifdefined\argmax\else\DeclareMathOperator*{\argmax}{arg\,max}\fi
 \ifdefined\argmin\else\DeclareMathOperator*{\argmin}{arg\,min}\fi
 % Guarded: `physics` already defines \rank; guard the rest so the addon works
@@ -55,18 +60,18 @@
 \ifdefined\sgn\else \DeclareMathOperator{\sgn}{sgn}\fi
 \ifdefined\supp\else\DeclareMathOperator{\supp}{supp}\fi
 
-% bedingte Wahrscheinlichkeit / "gegeben": \Prob(A \given B).
+% conditional probability / "given": \Prob(A \given B).
 % Robust with plain parens. For a stretchy bar use \left(\,\cdot\,\middle|\,\cdot\,\right).
 \providecommand{\given}{\mid}
-% Unabhängigkeit  X \indep Y
+% independence  X \indep Y
 \providecommand{\indep}{\perp\!\!\!\perp}
 % i.i.d.  X_1,\dots,X_n \iid \Normal(0,1)
 \providecommand{\iid}{\overset{\text{iid}}{\sim}}
-% konvergiert in Verteilung / Wahrscheinlichkeit
+% convergence in distribution / probability
 \providecommand{\convd}{\overset{d}{\to}}
 \providecommand{\convp}{\overset{p}{\to}}
 
-% ---- Verteilungen -----------------------------------------------------------
+% ---- Distributions ----------------------------------------------------------
 \providecommand{\Normal}{\mathcal{N}}
 \providecommand{\Bernoulli}{\mathrm{Bernoulli}}
 \providecommand{\Binomial}{\mathrm{Bin}}
@@ -74,22 +79,23 @@
 \providecommand{\Uniform}{\mathrm{Unif}}
 \providecommand{\Expo}{\mathrm{Exp}}
 
-% ---- Vektoren ---------------------------------------------------------------
-% EIN Makro, EINE Stelle zum Umschalten. \vek{x}, \vek{\beta}, \vek{1} (Einsvektor).
+% ---- Vectors ----------------------------------------------------------------
+% ONE macro, ONE place to switch. \vek{x}, \vek{\beta}, \vek{1} (all-ones vector).
 %
-% Die Darstellung ist bewusst hier zentralisiert: die Vorlesung schreibt Vektoren
-% an der Tafel unterstrichen, in einem gesetzten Skript ist das unüblich (Standard
-% wäre fett). Diese Frage ist damit ein Einzeiler und keine Migration über 14.500
-% Zeilen — vorher hing die Notation an ~390 einzelnen \underline{} im Fließtext.
+% The rendering is deliberately centralized here: a lecturer typically writes
+% vectors underlined (or arrowed) on the board, which is unusual in a typeset
+% script — the standard would be bold. With the macro that question is a
+% one-liner, not a migration: in the course this tool was built on, the notation
+% previously hung on ~390 individual \underline{} across 14,500 lines.
 %
-% Umschalten auf die Buchkonvention: die beiden Zeilen tauschen. \boldsymbol (nicht
-% \mathbf!) ist die richtige Wahl, weil \mathbf griechische Buchstaben NICHT fett
-% setzt — \vek{\beta} und \vek{\mu} kommen im Skript vor.
-% \providecommand{\vek}[1]{\underline{#1}}   % Tafelkonvention (wie im Video)
-\providecommand{\vek}[1]{\boldsymbol{#1}}     % Buchkonvention (aktuell)
+% To switch to the board convention: swap the two lines. \boldsymbol (not
+% \mathbf!) is the right choice, because \mathbf does NOT set Greek letters
+% bold — \vek{\beta} and \vek{\mu} will occur.
+% \providecommand{\vek}[1]{\underline{#1}}   % board convention (as in the video)
+\providecommand{\vek}[1]{\boldsymbol{#1}}     % book convention (default)
 
-% ---- Schätzer / Transponieren ----------------------------------------------
+% ---- Estimator / transpose --------------------------------------------------
 \providecommand{\est}[1]{\hat{#1}}            % \est{\theta} -> \hat\theta
-% \T beginnt mit ^ : Exponenten davor immer gruppieren, sonst "Double superscript"
-% (also (X^{-1})\T statt X^{-1}\T). Nur im Mathe-Modus verwendbar.
-\providecommand{\T}{^{\!\top}}                % A\T  (Transponierte)
+% \T begins with ^ : always group exponents before it, otherwise "Double superscript"
+% (i.e. (X^{-1})\T instead of X^{-1}\T). Usable only in math mode.
+\providecommand{\T}{^{\!\top}}                % A\T  (transpose)

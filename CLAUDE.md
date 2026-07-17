@@ -14,9 +14,10 @@ file is about the **output**.
 > file only carries the conventions, which say nothing about where the work currently stands.
 
 > **Edit this file for your course.** The conventions below are a working profile, not law: they
-> produce **German prose with English technical terms**, statistics notation, `article` class.
-> Change them to suit — but change them *before* Stage 4, because afterwards it is a consistency
-> pass over the whole corpus.
+> produce **English prose with standard technical terminology**, statistics notation, `article`
+> class. English is the default because it fits the widest range of academic work; to produce a
+> script in another language, see **Language** below. Change any of this to suit — but change it
+> *before* Stage 4, because afterwards it is a consistency pass over the whole corpus.
 
 ## Layout
 
@@ -54,10 +55,30 @@ lectures, smooth duplicates and forward references, check `\label`/`\ref`, then 
 
 ## Language & notation (binding)
 
-- **Prose German, technical terms English.** Pattern: „Der *maximum likelihood estimator* (MLE)
-  $\est{\theta}$ maximiert die *log-likelihood*." Italicise a term on first occurrence (with its
-  abbreviation if it has one), plain afterwards. Do not Germanise the terminology (never
-  „Schätzfunktion" for *estimator*), but verbs and sentence structure are German.
+**Language.** The script is written in **English** by default — English prose with standard
+technical terminology — because it fits the widest range of academic work. The language is a
+profile setting, kept deliberately in three places that you change *together*, once, before
+Stage 4:
+
+1. **Prose language** — the *Prose* bullet just below: what language the connecting prose is in,
+   and how technical terms are handled.
+2. **`babel`** — `\usepackage[english]{babel}` in `main.tex` (swap for `[ngerman]`, `[french]`, …).
+3. **Theorem labels** — the printed labels in `preamble_stats_addon.tex` (`Theorem`, `Example`,
+   …). Translate the *labels*, keep the *environment names* — the names are code (this file and the
+   fragments reference `theorem`, `example`, …), the labels are what the reader sees.
+
+Whichever language you pick, keep it uniform across every lecture — that uniformity is what makes
+independently-processed lectures read as one script. The recipe is the same in any language: write
+the connecting prose in that language, decide per term whether it keeps its standard English name
+(e.g. *maximum likelihood estimator*) or is localised, and hold that line across the corpus. The
+italicise-on-first-use rule in the *Prose* bullet applies unchanged whatever the prose language.
+
+- **Prose English, standard terminology.** Pattern: "The *maximum likelihood estimator* (MLE)
+  $\est{\theta}$ maximises the *log-likelihood*." Italicise a term on first occurrence (with its
+  abbreviation if it has one), plain afterwards. Use the established name for each object; do not
+  invent nonstandard terminology. (For a non-English script, the prose is in that language while
+  the italicised terms may stay in English — prose language and term language are independent
+  choices, both set here in item (1).)
 - **Standard symbols** (do not deviate): expectation `\E`, variance `\Var`, covariance `\Cov`,
   probability `\Prob`, estimator `\est{\theta}` (= $\hat\theta$), transpose `A\T`, i.i.d. `\iid`,
   independence `\indep`, conditioning `\given`, convergence `\convp`/`\convd`, indicator
@@ -71,8 +92,8 @@ lectures, smooth duplicates and forward references, check `\label`/`\ref`, then 
 
 ## LaTeX conventions (binding)
 
-- Theorem environments: `definition`, `satz`, `theorem`, `lemma`, `korollar`, `proposition`,
-  `beispiel`, `bemerkung`, `algorithmus` (shared counter).
+- Theorem environments: `definition`, `theorem`, `lemma`, `corollary`, `proposition`, `example`,
+  `remark`, `algorithm` (shared counter).
 - **Anchor every page with its timestamp**, as a comment, so anyone can jump back into the video:
   `% [L03 @ 00:23:15]` before the block that came from that page. PDF lectures (no audio) are
   anchored by page: `% [L13 p.5]`. These anchors are the audit trail — they are how a reader

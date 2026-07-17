@@ -2,6 +2,8 @@
 
 Turns a semester of lecture recordings into a LaTeX script: prose, theorems, derivations and
 redrawn figures, with each block annotated with the timestamp of the video passage it came from.
+The script is written in **English** by default; any other output language can be selected and
+adapted — see [Language](#language).
 
 ```
 videos/L03.mp4
@@ -128,6 +130,24 @@ pages overlap, that every detected slide change reached a page, that the last pa
 end of the video, and that no writing sat unphotographed on a static canvas for longer than
 `--max-static-seconds`.
 
+## Language
+
+The script is produced in **English** by default, since that fits the widest range of academic
+work. Any language works — the output language is a profile setting held in three places, changed
+together and *before* stage 4 (afterwards it is a consistency pass over the whole corpus):
+
+- the language profile in [`CLAUDE.md`](CLAUDE.md) → **Language** — the prose language every
+  `lecture-processor` subagent writes in, and whether technical terms are kept in English or
+  localised;
+- `\usepackage[english]{babel}` in `work/main.tex` — swap for `[ngerman]`, `[french]`, …;
+- the printed theorem labels in [`preamble_stats_addon.tex`](preamble_stats_addon.tex) (`Theorem`,
+  `Example`, …) — translate the labels, keep the environment names, which are code.
+
+`CLAUDE.md` → **Language** is the authoritative description; the other two are the files it points
+at. The default profile keeps technical terminology in standard English; for a non-English script
+the prose is written in the chosen language while the standard English term names can be kept
+inline (that split is described there).
+
 ## Configuration
 
 The defaults are tuned for an iPad recording of a scrolling, light-background handwriting canvas
@@ -251,9 +271,9 @@ only private option.
 The tool is MIT-licensed (see [LICENSE](LICENSE)). The lecture material processed with it is not
 covered by that license: recordings of a lecture, transcripts of them, frames from them and a
 LaTeX script derived from them are all derivative works of someone else's teaching. Making them
-for personal use is often permitted (in Germany, § 60a UrhG covers a fair amount of personal and
-teaching use); publishing them usually requires the lecturer's permission. The repo defaults to
-keeping the output private for that reason.
+for personal study is often permitted (many jurisdictions have an educational or private-copying
+exception — fair use or fair dealing, for instance); publishing them usually requires the
+lecturer's permission. The repo defaults to keeping the output private for that reason.
 
 Dependencies are installed by the user, none are bundled or redistributed here:
 

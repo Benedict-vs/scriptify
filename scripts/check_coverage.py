@@ -186,13 +186,12 @@ def main() -> None:
     ok = all([check(d) for d in dirs])      # list, not generator: check every lecture
 
     if temporal_unverified:
-        print(f"\n[~] Temporale Invariante UNGEPRÜFT für: {', '.join(temporal_unverified)}")
-        print( "    Diese Manifeste stammen aus der Zeit vor dem --max-static-seconds-Fix. Die")
-        print( "    räumliche Coverage oben ist grün und gilt; über Inhalt, der auf STEHENDEM")
-        print( "    Canvas geschrieben und dort wieder gelöscht wurde, sagt sie nichts.")
-        print( "    Für den ausgelieferten Korpus ist das erledigt — nicht vom Extractor, sondern")
-        print( "    per Video-Pass (scripts/peek.py). Wer eine dieser Vorlesungen NEU durch Stage 4")
-        print( "    schickt: vorher neu extrahieren, dann trägt das Manifest die Garantie.")
+        print(f"\n[~] Temporal invariant UNVERIFIED for: {', '.join(temporal_unverified)}")
+        print( "    These manifests predate the --max-static-seconds fix. The spatial coverage")
+        print( "    above is green and holds; it says nothing about content written on a STANDING")
+        print( "    canvas and erased there again before the next emit.")
+        print( "    Re-extract these lectures before sending them through Stage 4 — only then does")
+        print( "    the manifest carry the temporal guarantee as well.")
 
     if not ok:
         sys.exit(1)

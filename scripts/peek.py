@@ -4,7 +4,7 @@ peek.py — look at the VIDEO at a given timestamp, not at the extracted pages.
 
 Why this exists
 ---------------
-Every `% TODO(L03 @ 01:04:42): ... im Video prüfen` in the corpus was written by an
+Every `% TODO(L03 @ 01:04:42): ... check the video` in the corpus was written by an
 agent that could only see `work/L##/frames/page_###.png` — the pages the extractor
 chose to emit. But the extractor emits a page when the canvas has *settled*: after a
 scroll comes to rest, on a slide change, at a clear. That makes it blind, by
@@ -16,7 +16,7 @@ construction, to exactly the things the TODOs ask about:
   * a figure the lecturer builds up incrementally (only the final state is a page).
 
 None of that is a bug — a page is a still, and these are motion. The video still has
-every frame of it. So "im Video prüfen" is not a note to a human; it is an executable
+every frame of it. So "check the video" is not a note to a human; it is an executable
 instruction, and this is the executable.
 
 Two modes, because handwriting legibility is the whole constraint:
@@ -40,8 +40,8 @@ import argparse, os, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-# Repo-relativ, nicht an eine Session gebunden: der frühere hartkodierte Scratchpad-Pfad
-# zeigte auf ein totes Session-Verzeichnis und wurde von mkdir() stumm neu angelegt.
+# Repo-relative, not tied to a session: the earlier hardcoded scratchpad path pointed at a
+# dead session directory and was silently recreated by mkdir().
 OUT = Path(os.environ.get("PEEK_OUT") or ROOT / "work" / "_peek")
 
 

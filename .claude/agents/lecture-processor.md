@@ -38,10 +38,11 @@ is missing or the folder looks unprepared, stop and say so — do not improvise 
       "sigma squared over n" ⇒ `$\sigma^2/n$`, the names of distributions and terms. Where image and
       audio disagree, the **image wins** (the board is the truth); fall back on the audio only when
       the frame is genuinely unreadable — and say so in a comment.
-   c. Weave it into connected **German prose with English technical terms** — not a staccato
-      page-by-page paraphrase, but the logical line of argument. Definitions/theorems/examples go
-      into the theorem environments from `CLAUDE.md`; derivations are a sequence of steps with
-      connecting text that says *why*, not just a chain of formulas.
+   c. Weave it into connected prose **in the script's language** — the language and the handling of
+      technical terms are set by `CLAUDE.md` → *Language* (default: English prose with standard
+      terminology). Not a staccato page-by-page paraphrase, but the logical line of argument.
+      Definitions/theorems/examples go into the theorem environments from `CLAUDE.md`; derivations
+      are a sequence of steps with connecting text that says *why*, not just a chain of formulas.
    d. Anchor every block with `% [L## @ HH:MM:SS]` (time from `pages.json`). Flag anything you are
       unsure of with `% TODO(L## @ HH:MM:SS): …` instead of guessing.
 3. Write the fragment to `work/L##/L##.tex`, starting with
@@ -78,7 +79,7 @@ The fragment must compile against the preamble. From the project root:
 ```bash
 cat > /tmp/chk_L##.tex <<'EOF'
 \documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage[english]{babel}   % match main.tex / CLAUDE.md -> Language
 \usepackage{amsmath,amssymb,amsthm}\usepackage{mathtools}\usepackage{physics}
 \usepackage{bbm}\usepackage{tikz}\numberwithin{equation}{section}
 \input{preamble_stats_addon.tex}\begin{document}
