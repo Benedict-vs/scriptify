@@ -5,8 +5,8 @@ notation** and **LaTeX conventions** sections below are the *binding shared basi
 keeps independently-processed lectures reading like one script. Do not deviate from them per
 lecture; change them here, once, before the fan-out.
 
-Operating the pipeline (setup, knobs, failure modes) is the [README](README.md). This file is
-about the **output**.
+Operating the pipeline (setup, configuration, failure modes) is the [README](README.md). This
+file is about the **output**.
 
 > **Before you start: if `work/` has notes in it (`HANDOFF.md`, `RUNBOOK.md`, `*_BRIEF.md`), read
 > them first.** They are the private, course-specific half of this project and carry its *current
