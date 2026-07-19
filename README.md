@@ -42,9 +42,15 @@ hook refuses to commit their contents; see
 
 ```bash
 brew install ffmpeg poppler
-pip install mlx-whisper numpy matplotlib
+uv sync                      # Python deps from pyproject.toml / uv.lock -> .venv
 scripts/install-hooks.sh     # pre-commit hook that blocks lecture content; run this first
 ```
+
+PyMuPDF is an opt-in extra because of its licence (see [License](#license)):
+`uv sync --extra pymupdf`, needed only for `pdf_to_pages.py --renderer pymupdf`.
+Without [uv](https://docs.astral.sh/uv/), `pip install mlx-whisper numpy matplotlib` in any
+environment works the same. The commands below assume the environment is active
+(`source .venv/bin/activate`) — or prefix them with `uv run`.
 
 ## Usage
 

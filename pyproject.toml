@@ -1,0 +1,14 @@
+[project]
+name = "scriptify"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "matplotlib>=3.11.1",
+    "mlx-whisper>=0.4.3",
+    "numpy>=2.4.6",
+]
+
+[project.optional-dependencies]
+pymupdf = [
+    "pymupdf>=1.28.0",
+]
