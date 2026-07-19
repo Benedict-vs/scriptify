@@ -13,7 +13,7 @@
 #
 # SETUP (once):
 #   brew install ffmpeg
-#   pip install mlx-whisper
+#   uv sync        # from the repo root; then run this script via `uv run`
 #   (the large-v3 model ~3 GB downloads automatically from Hugging Face on first run)
 #
 # USAGE:

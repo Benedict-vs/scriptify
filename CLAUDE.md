@@ -131,9 +131,11 @@ board the whole time.
 "Check the video" is executable:
 
 ```bash
-python scripts/peek.py L03 01:04:42          # contact sheet ±30 s → locate the moment
-python scripts/peek.py L03 01:05:07 --frame  # full-res frame      → read it
+uv run python scripts/peek.py L03 01:04:42          # contact sheet ±30 s → locate the moment
+uv run python scripts/peek.py L03 01:05:07 --frame  # full-res frame      → read it
 ```
+
+(`uv run` provisions the project venv automatically — no activation needed.)
 
 ---
 
